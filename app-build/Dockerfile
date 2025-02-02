@@ -6,8 +6,9 @@ FROM pudding/docker-app-filebrowse-20230822-1557
 ENV APP_NAME="File Browser"
 ENV LOCAL_VOLUMN_PATH=/data/
 
-ENV LOCAL_PORT=8080
-ENV URL_TO_TEST_READY=http://127.0.0.1:8080/filebrowser/files/
+# PORT不可以設定8080
+ENV LOCAL_PORT=8081
+ENV URL_TO_TEST_READY=http://127.0.0.1:8081/filebrowser/files/
 
 # =================================================================
 # Necessary Script, Do Not Remove

@@ -1,0 +1,78 @@
+## 標題與副標題
+#set($display_title="Apache Solr IR Practice")
+#set($display_subtitle="Information Retrieval Practice")
+
+
+## 簡易顯示欄位
+#set($result_fields = [
+    {'name': 'title', 'label': false, 'access_point': "#lensNoQ&q=id:%22$docId%22&mlt=true"},
+    {'name': 'author', 'label': 'Author', 'access_point': true},
+    {'name': 'publish_year', 'label': 'Publish Year', 'access_point': true},
+    {'name': 'subject', 'label': 'Subject', 'access_point': true},
+
+    {'name': 'dc.title', 'label': false, 'access_point': false},
+    {'name': 'dc.creator', 'label': 'Author', 'access_point': true},
+    {'name': 'dc.date', 'label': 'Publish Year', 'access_point': true},
+    {'name': 'dc.subject', 'label': 'Subject', 'access_point': true},
+    {'name': 'dc.publisher', 'label': 'Publisher', 'access_point': true},
+    {'name': 'dc.description', 'label': 'Description', 'access_point': false},
+    {'name': 'text', 'label': 'Text', 'access_point': false}
+])
+
+## 詳細顯示欄位
+#set($detail_fields = [
+    {'name': 'title', 'label': false, 'access_point': false},
+    {'name': 'author', 'label': 'Author', 'access_point': true},
+    {'name': 'publish_year', 'label': 'Publish Year', 'access_point': false},
+    {'name': 'subject', 'label': 'Subject', 'access_point': true},
+    {'name': 'edition', 'label': 'Edition', 'access_point': false},
+    {'name': 'isbn', 'label': 'ISBN', 'access_point': false},
+    {'name': 'e_book_isbn', 'label': 'E-book ISBN', 'access_point': false},
+    {'name': 'ddc', 'label': 'DDC', 'access_point': true},
+    {'name': 'lcc', 'label': 'LCC', 'access_point': true},
+
+    {'name': 'dc.title', 'label': false, 'access_point': false},
+    {'name': 'dc.creator', 'label': 'Author', 'access_point': true},
+    {'name': 'dc.date', 'label': 'Publish Year', 'access_point': false},
+    {'name': 'dc.subject', 'label': 'Subject', 'access_point': true},
+    {'name': 'dc.format', 'label': 'Format', 'access_point': false},
+    {'name': 'dc.identifier', 'label': 'Identifier', 'access_point': false},
+    {'name': 'dc.source', 'label': 'Source', 'access_point': false},
+    {'name': 'dc.publisher', 'label': 'Publisher', 'access_point': true},
+    {'name': 'dc.language', 'label': 'Language', 'access_point': true},
+    {'name': 'dc.relation', 'label': 'Relation', 'access_point': true},
+    {'name': 'dc.coverage', 'label': 'Coverage', 'access_point': true},
+    {'name': 'dc.rights', 'label': 'Rights', 'access_point': true},
+    {'name': 'dc.type', 'label': 'Types', 'access_point': true},
+    {'name': 'dc.description', 'label': 'Description', 'access_point': false},
+
+    {'name': 'id', 'label': 'ID', 'access_point': false},
+    {'name': 'text', 'label': 'Text', 'access_point': false}
+])
+
+## 類似資料顯示欄位
+#set($similar_fields = [
+    
+    {'name': 'dc.title', 'label': false, 'access_point': true},
+    {'name': 'dc.creator', 'label': 'Author', 'access_point': true},
+    {'name': 'dc.date', 'label': 'Publish Year', 'access_point': true},
+    {'name': 'dc.subject', 'label': 'Subject', 'access_point': true}
+])
+
+## 詳細檢索可使用的欄位
+#set($advance_search_fields = [
+    {'name': 'dc.title', 'label': "Title"},
+    {'name': 'dc.creator', 'label': 'Author'},
+    {'name': 'dc.date', 'label': 'Publish Date'},
+    {'name': 'dc.subject', 'label': 'Subject'},
+    {'name': 'dc.format', 'label': 'Format'},
+    {'name': 'dc.identifier', 'label': 'Identifier'},
+    {'name': 'dc.source', 'label': 'Source'},
+    {'name': 'dc.publisher', 'label': 'Publisher'},
+    {'name': 'dc.language', 'label': 'Language'},
+    {'name': 'dc.relation', 'label': 'Relation'},
+    {'name': 'dc.coverage', 'label': 'Coverage'},
+    {'name': 'dc.rights', 'label': 'Rights'}
+])
+
+#set($cluster_enabled = true)

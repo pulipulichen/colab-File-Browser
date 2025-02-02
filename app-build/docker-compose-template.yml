@@ -2,7 +2,7 @@ version: "3"
 services:
   app:
     container_name: colab-file-browser
-    image: pudding/docker-web:colab-file-browser-20250202.211957
+    image: pudding/docker-web:colab-file-browser-20250202.212107
     tty: true
     ports:
       - "8080:8080"

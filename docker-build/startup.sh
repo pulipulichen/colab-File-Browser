@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Get the directory path of the script
 script_dir=$(dirname "$0")
 
@@ -26,7 +25,7 @@ waitForConntaction() {
 
 # ----------------------------------------------------------------
 
-./../app-build/app-1-start.sh &
+bash ./app-1-start.sh &
 
 #echo "BEFORE ================================================================="
 waitForConntaction "${LOCAL_PORT}"
@@ -40,12 +39,13 @@ rm -f "${DATA_TEMP_PATH}"
 
 # ----------------------------------------------------------------
 
-./../app-build/app-2-afterstart.sh &
+bash ./app-2-afterstart.sh
 
 # ----------------------------------------------------------------
 
+echo "Waiting for 10 seconds..."
 if [ "$INITED" != "true" ]; then
-  sleep 30
+  sleep 10
 fi
 
 # ----------------------------------------------------------------
@@ -79,28 +79,44 @@ getCloudflarePublicURL() {
 
   runCloudflare "${port}" "${file_path}" &
 
-  sleep 3
+  sleep 30
 
-  # Extracting the URL using grep and awk
-  url=$(grep -o 'https://[^ ]*\.trycloudflare\.com' "$file_path" | awk '/https:\/\/[^ ]*\.trycloudflare\.com/{print; exit}')
+  # Retry logic
+  max_retries=5  # Set max retries to avoid infinite loops
+  retry_count=0
 
-  echo "$url/solr/collection/browse"
+  while [[ $retry_count -lt $max_retries ]]; do
+    # Extracting the URL using grep and awk
+    url=$(grep -o 'https://[^ ]*\.trycloudflare\.com' "$file_path" | awk '/https:\/\/[^ ]*\.trycloudflare\.com/{print; exit}')
+
+    if [[ -n "$url" ]]; then
+      echo "$url"
+      return 0
+    fi
+
+    # If URL is empty, wait 5 seconds and retry
+    echo "URL not found, retrying in 5 seconds... (Attempt $((retry_count + 1))/$max_retries)"
+    sleep 5
+    ((retry_count++))
+  done
+
+  echo "Failed to retrieve Cloudflare URL after $max_retries attempts." >&2
+  return 1
 }
 
 getCloudflarePublicURL "${LOCAL_PORT}" > "${LOCAL_VOLUMN_PATH}/.cloudflare.url"
 
 # ----------------------------------------------------------------
 
-
 url=$URL_TO_TEST_READY
 
 while true; do
     response=$(curl -s "$url")
-    #echo "$response"
+    # echo "$response"
     if [[ $(echo "$response" | jq -e . 2>/dev/null) ]]; then
         echo "Received JSON, sleeping for 5 seconds..."
         sleep 5
-    elif [[ $response == *"<html>"* ]]; then
+    elif [[ $response == *"</html>"* ]]; then
         sleep 10
         echo "Received HTML, it's okay!"
         break
@@ -115,6 +131,11 @@ echo `date` > "${LOCAL_VOLUMN_PATH}/.docker-web.ready"
 
 echo "================================================================"
 echo "$APP_NAME is ready to serve."
+if [[ "$RUN_IN_LOCAL" == "true" ]]; then
+  echo ""
+  echo "Public URL:"
+  cat "${LOCAL_VOLUMN_PATH}/.cloudflare.url"
+fi
 echo "================================================================"
 
 # ----------------------------------------------------------------

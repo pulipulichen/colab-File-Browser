@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cd app-build; docker-compose up --build",
+    "start": "bash ./docker-build/local-startup.sh",
     "commit-docker-image": "bash ./docker-build/commit-docker-image.sh"
   },
   "repository": {

@@ -1,0 +1,11 @@
+# Only for local testing
+version: "3"
+services:
+  app:
+    build: .
+    tty: true
+    #user: solr
+    ports:
+      - "8983:8983"
+    volumes: 
+      - "./data:/data"

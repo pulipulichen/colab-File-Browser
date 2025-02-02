@@ -1,5 +1,12 @@
 #!/bin/bash
 
+
+# Get the directory path of the script
+script_dir=$(dirname "$0")
+
+# Change the current working directory to the script's location
+cd "$script_dir"
+
 # ----------------------------------------------------------------
 
 waitForConntaction() {
@@ -19,27 +26,7 @@ waitForConntaction() {
 
 # ----------------------------------------------------------------
 
-rm -f "${LOCAL_VOLUMN_PATH}/.docker-web.ready" || true
-rm -f "${LOCAL_VOLUMN_PATH}/.cloudflare.url" || true
-ls -la "${LOCAL_VOLUMN_PATH}/"
-
-INITED="true"
-if [ -z "$(ls -A $LOCAL_VOLUMN_PATH)" ]; then
-  rm -rf /var/solr/data/collection/data
-  rsync --ignore-existing -r /docker-build/conf/ "${LOCAL_VOLUMN_PATH}"
-  INITED="false"
-fi
-
-if [ -f "${LOCAL_VOLUMN_PATH}solrconfig.xml.txt" ]; then
-  cp -f "${LOCAL_VOLUMN_PATH}solrconfig.xml.txt" "${LOCAL_VOLUMN_PATH}solrconfig.xml"
-fi
-
-# if [ ! -e "${LOCAL_VOLUMN_PATH}/solrconfig.xml" ]; then
-#   ln -s "${LOCAL_VOLUMN_PATH}"solrconfig.xml.txt "${LOCAL_VOLUMN_PATH}"solrconfig.xml
-# fi
-
-#docker-entrypoint.sh solr-foreground -force -Dsolr.clustering.enabled=true &
-solr start -force -f -Dsolr.clustering.enabled=true &
+./../app-build/app-1-start.sh &
 
 #echo "BEFORE ================================================================="
 waitForConntaction "${LOCAL_PORT}"
@@ -51,25 +38,11 @@ DATA_PATH="${LOCAL_VOLUMN_PATH}data.csv"
 DATA_TEMP_PATH="${LOCAL_VOLUMN_PATH}data-temp.csv"
 rm -f "${DATA_TEMP_PATH}"
 
-python3 "/docker-build/python/init_data.py"
+# ----------------------------------------------------------------
 
-if [ -f "$DATA_TEMP_PATH" ]; then
-  DATA_PATH="${DATA_TEMP_PATH}"
-fi
+./../app-build/app-2-afterstart.sh &
 
-python3 "/docker-build/python/prepend_id.py" "${DATA_PATH}"
-python3 "/docker-build/python/remove_not_in_id.py" "${DATA_PATH}"
-if [ ! -f "$file" ]; then
-  post -c collection "${DATA_PATH}"
-  cp -rf "${LOCAL_VOLUMN_PATH}" /tmp/
-else
-  if diff -r "${LOCAL_VOLUMN_PATH}" "/tmp/conf" &> /dev/null; then
-    echo "Folders are identical"
-  else
-    post -c collection "${DATA_PATH}"
-    cp -rf "${LOCAL_VOLUMN_PATH}" /tmp/
-  fi
-fi
+# ----------------------------------------------------------------
 
 if [ "$INITED" != "true" ]; then
   sleep 30
@@ -119,7 +92,7 @@ getCloudflarePublicURL "${LOCAL_PORT}" > "${LOCAL_VOLUMN_PATH}/.cloudflare.url"
 # ----------------------------------------------------------------
 
 
-url="http://127.0.0.1:${LOCAL_PORT}/solr/collection/browse"
+url=$URL_TO_TEST_READY
 
 while true; do
     response=$(curl -s "$url")
@@ -141,7 +114,7 @@ done
 echo `date` > "${LOCAL_VOLUMN_PATH}/.docker-web.ready"
 
 echo "================================================================"
-echo "Apache Solr is ready to serve."
+echo "$APP_NAME is ready to serve."
 echo "================================================================"
 
 # ----------------------------------------------------------------

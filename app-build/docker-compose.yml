@@ -8,8 +8,10 @@ services:
     tty: true
     #user: solr
     ports:
+      # @TODO
       - "8080:8080"
     environment:
       - RUN_IN_LOCAL=true
     volumes: 
+      # @TODO
       - "./../data:/data"

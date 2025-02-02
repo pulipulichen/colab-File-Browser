@@ -1,27 +1,30 @@
 {
-  "name": "docker-web-Apache-Solr",
+  "name": "colab-File-Browser",
   "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "docker-compose up --build",
-    "reset-start": "rm -rf ./docker-web-Apache-Solr; docker-compose up --build",
-    "d0.build": "docker-compose build",
-    "d1.bash": "docker-compose run --service-ports app bash /console.sh",
-    "save-conf": "bash ./docker-build/save-conf.sh",
-    "commit-docker-image": "docker-compose build; bash ./docker-build/image/commit-docker-image.sh"
+    "start": "cd app-build; docker-compose up --build",
+    "commit-docker-image": "bash ./docker-build/commit-docker-image.sh"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://pulipuli.chen@gmail.com@github.com/pulipulichen/docker-web-Apache-Solr.git"
+    "url": "git+https://pulipuli.chen@gmail.com@github.com/pulipulichen/colab-File-Browser.git"
   },
   "keywords": [
-    "PWA"
+    "google-colab",
+    "file-browser",
+    "docker",
+    "web-application"
   ],
-  "author": "Pulipuli Chen",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/pulipulichen/docker-web-Apache-Solr/issues"
+  "author": {
+    "name": "Yung-Ting Chen",
+    "email": "blog@pulipuli.info",
+    "orcid": "https://orcid.org/0000-0003-3751-610X",
+    "url": "https://blog.pulipuli.info"
   },
-  "homepage": "https://github.com/pulipulichen/docker-web-Apache-Solr#readme"
+  "bugs": {
+    "url": "https://github.com/pulipulichen/colab-File-Browser/issues"
+  },
+  "homepage": "https://github.com/pulipulichen/colab-File-Browser#readme"
 }

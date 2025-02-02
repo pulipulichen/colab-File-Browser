@@ -4,11 +4,11 @@ services:
     image: pudding/docker-web:docker-web-apache-solr-app-20231111.173446
     tty: true
     ports:
-      - "8983:8983"
+      - "8080:8080"
     environment:
-      - LOCAL_VOLUMN_PATH=/var/solr/data/collection/conf/
+      - LOCAL_VOLUMN_PATH=/data
       - APP_NAME="File Browser"
       - CONTAINER_NAME=docker-web-apache-solr-app
       - URL_TO_TEST_READY=http://127.0.0.1:8080/
     volumes: 
-      - "__SOURCE__/docker-web-Apache-Solr:/var/solr/data/collection/conf"
+      - "__SOURCE__/data:/data"

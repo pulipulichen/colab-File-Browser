@@ -1,7 +1,8 @@
 version: "3"
 services:
   app:
-    image: pudding/docker-web:docker-web-apache-solr-app-20250202.211341
+    container_name: colab-file-browser
+    image: pudding/docker-web:-20250202.211536
     tty: true
     ports:
       - "8080:8080"

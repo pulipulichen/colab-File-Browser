@@ -5,7 +5,8 @@ services:
     image: pudding/docker-web:colab-file-browser-20250202.212107
     tty: true
     ports:
-      - "8080:8080"
+      # WEBAPP_PORT不可以使用8080
+      - "58080:8080"
     environment:
       - LOCAL_VOLUMN_PATH=/data
       - APP_NAME="File Browser"

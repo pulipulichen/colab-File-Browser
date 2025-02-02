@@ -29,7 +29,7 @@ echo "IMAGE_NAME: $IMAGE_NAME"
 # ========
 
 docker-compose build
-docker tag app-build-appx ${IMAGE_NAME}
+docker tag app-build-app ${IMAGE_NAME}
 docker push "${IMAGE_NAME}"
 
 # =========

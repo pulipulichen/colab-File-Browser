@@ -2,7 +2,7 @@ version: "3"
 services:
   app:
     container_name: colab-file-browser
-    image: pudding/docker-web:colab-file-browser-20250202.220312
+    image: pudding/docker-web:colab-file-browser-20250202.220343
     tty: true
     ports:
       # WEBAPP_PORT不可以使用8080

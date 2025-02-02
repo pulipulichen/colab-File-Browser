@@ -9,7 +9,7 @@ services:
     #user: solr
     ports:
       # @TODO
-      - "8080:8080"
+      - "8081:8081"
     environment:
       - RUN_IN_LOCAL=true
     volumes: 

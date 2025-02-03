@@ -4,7 +4,7 @@ services:
     container_name: colab-file-browser
     image: pudding/docker-web:colab-file-browser-20250202.220343
     tty: true
-    command: ["executable", "arg"]
+    # command: ["bash"]
     ports:
       # WEBAPP_PORT不可以使用8080
       - "8081:8081"

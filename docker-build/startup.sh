@@ -12,13 +12,13 @@ waitForConntaction() {
   port="$1"
   sleep 3
   while true; do
-    echo "http://127.0.0.1:$port"
+    # echo "http://127.0.0.1:$port"
     if curl -sSf "http://127.0.0.1:$port" >/dev/null 2>&1; then
       echo "Connection successful."
       break
     else
       #echo "Connection failed. Retrying in 5 seconds..."
-      sleep 5
+      sleep 10
     fi
   done
 }
@@ -37,7 +37,7 @@ sleep 10
 
 # ----------------------------------------------------------------
 
-echo "After APP Start... $(date)"
+echo "\nAfter APP Start... $(date)"
 
 bash ./app-2-afterstart.sh
 
@@ -131,7 +131,7 @@ done
 
 echo `date` > "${LOCAL_VOLUMN_PATH}/.docker-web.ready"
 
-echo "================================================================"
+echo "\n================================================================"
 echo "$APP_NAME is ready to serve. $(date)"
 if [[ "$RUN_IN_LOCAL" == "true" ]]; then
   echo ""

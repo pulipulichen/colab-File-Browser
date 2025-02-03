@@ -25,6 +25,8 @@ waitForConntaction() {
 
 # ----------------------------------------------------------------
 
+echo "Start APP... $(date)"
+
 bash ./app-1-start.sh &
 
 #echo "BEFORE ================================================================="
@@ -33,11 +35,9 @@ waitForConntaction "${LOCAL_PORT}"
 
 sleep 10
 
-DATA_PATH="${LOCAL_VOLUMN_PATH}data.csv"
-DATA_TEMP_PATH="${LOCAL_VOLUMN_PATH}data-temp.csv"
-rm -f "${DATA_TEMP_PATH}"
-
 # ----------------------------------------------------------------
+
+echo "After APP Start... $(date)"
 
 bash ./app-2-afterstart.sh
 
@@ -104,7 +104,9 @@ getCloudflarePublicURL() {
   return 1
 }
 
-getCloudflarePublicURL "${LOCAL_PORT}" > "${LOCAL_VOLUMN_PATH}/.cloudflare.url"
+if [[ "$RUN_IN_LOCAL" == "true" ]]; then
+  getCloudflarePublicURL "${LOCAL_PORT}" > "${LOCAL_VOLUMN_PATH}/.cloudflare.url"
+fi
 
 # ----------------------------------------------------------------
 
@@ -130,7 +132,7 @@ done
 echo `date` > "${LOCAL_VOLUMN_PATH}/.docker-web.ready"
 
 echo "================================================================"
-echo "$APP_NAME is ready to serve."
+echo "$APP_NAME is ready to serve. $(date)"
 if [[ "$RUN_IN_LOCAL" == "true" ]]; then
   echo ""
   echo "Public URL:"

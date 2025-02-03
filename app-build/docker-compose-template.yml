@@ -2,7 +2,7 @@ version: "3"
 services:
   app:
     container_name: colab-file-browser
-    image: pudding/docker-web:colab-file-browser-20250202.220343
+    image: pudding/docker-web:colab-file-browser-20250203.210626
     tty: true
     # command: ["bash"]
     ports:

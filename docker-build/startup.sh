@@ -43,7 +43,7 @@ bash ./app-2-afterstart.sh
 
 # ----------------------------------------------------------------
 
-echo "Waiting for 10 seconds..."
+echo "\nWaiting for 10 seconds..."
 if [ "$INITED" != "true" ]; then
   sleep 10
 fi

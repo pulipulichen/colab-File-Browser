@@ -37,13 +37,15 @@ sleep 10
 
 # ----------------------------------------------------------------
 
-echo "\nAfter APP Start... $(date)"
+echo ""
+echo "After APP Start... $(date)"
 
 bash ./app-2-afterstart.sh
 
 # ----------------------------------------------------------------
 
-echo "\nWaiting for 10 seconds..."
+echo ""
+echo "Waiting for 10 seconds..."
 if [ "$INITED" != "true" ]; then
   sleep 10
 fi

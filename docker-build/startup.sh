@@ -133,7 +133,8 @@ done
 
 echo `date` > "${LOCAL_VOLUMN_PATH}/.docker-web.ready"
 
-echo "\n================================================================"
+echo ""
+echo "================================================================"
 echo "$APP_NAME is ready to serve. $(date)"
 if [[ "$RUN_IN_LOCAL" == "true" ]]; then
   echo ""

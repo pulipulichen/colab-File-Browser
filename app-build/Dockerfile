@@ -9,6 +9,7 @@ ENV LOCAL_VOLUMN_PATH=/data/
 # PORT不可以設定8080
 ENV LOCAL_PORT=8081
 ENV URL_TO_TEST_READY=http://127.0.0.1:8081/filebrowser/files/
+ENV RUN_IN_LOCAL=true
 
 # =================================================================
 # Necessary Script, Do Not Remove

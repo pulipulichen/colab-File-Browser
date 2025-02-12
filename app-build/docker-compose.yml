@@ -6,12 +6,20 @@ services:
       context: ./../
       dockerfile: ./app-build/Dockerfile
     tty: true
-    #user: solr
+    # command: ["bash"]
     ports:
-      # @TODO
+      # WEBAPP_PORT不可以使用8080
       - "8081:8081"
-    environment:
-      - RUN_IN_LOCAL=true
     volumes: 
-      # @TODO
-      - "./../data:/data"
+      - "./data:/data"
+    environment:
+      - RUN_IN_LOCAL=false
+
+    ## For Nvidia GPU's
+    # deploy:
+    #  resources:
+    #    reservations:
+    #      devices:
+    #        - driver: nvidia
+    #          count: all
+    #          capabilities: [gpu]

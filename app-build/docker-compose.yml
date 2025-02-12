@@ -12,8 +12,8 @@ services:
       - "8081:8081"
     volumes: 
       - "./data:/data"
-    environment:
-      - RUN_IN_LOCAL=false
+    # environment:
+    #   - RUN_IN_LOCAL=true
 
     ## For Nvidia GPU's
     # deploy:
